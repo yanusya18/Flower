@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flora & Bloom — Квіткова майстерня</title>
+</head>
+<body>
+
+    <header>
+        <h1>Flora & Bloom</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">Про майстерню</a></li>
+                <li><a href="#catalog">Каталог</a></li>
+                <li><a href="#order">Замовлення</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>Про нашу майстерню</h2>
+            <p>Ми створюємо авторські композиції зі свіжих квітів для будь-яких моментів життя.</p>
+        </section>
+
+        <section id="catalog">
+            <h2>Популярні композиції</h2>
+            <article>
+                <h3>Букет "Ніжність півоній"</h3>
+                <p>Пишні рожеві та білі півонії з додаванням евкаліпта.</p>
+            </article>
+        </section>
+
+        <section id="order">
+            <h2>Оформити замовлення</h2>
+            <form action="#" method="post">
+                <div>
+                    <label for="client-name">Ваше ім'я:</label>
+                    <input type="text" id="client-name" name="client_name" placeholder="Олена" required>
+                </div>
+                <div>
+                    <label for="client-email">Email:</label>
+                    <input type="email" id="client-email" name="client_email" placeholder="olena@example.com" required>
+                </div>
+                <div>
+                    <label for="details">Побажання:</label>
+                    <textarea id="details" name="details" rows="3" placeholder="Кількість квітів або час доставки..." required></textarea>
+                </div>
+                <button type="submit">Надіслати замовлення</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Flora & Bloom</p>
+    </footer>
+
+</body>
+</html>
