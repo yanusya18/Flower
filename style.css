@@ -1,0 +1,220 @@
+
+/* ---  Custom properties (кольорова палітра проєкту) --- */
+:root {
+  --primary-color: #6E3DD9;   /* основний фіолетовий — акценти, кнопки, h2 */
+  --primary-light: #966BF2;   /* світліший фіолетовий — hover-стан */
+  --secondary-color: #195900; /* темно-зелений — картки «Догляд» */
+  --accent-color: #FDFF70;    /* жовтий — виділення (використовується точково) */
+  --text-color: #2b2b2b;      /* основний колір тексту */
+  --bg-color: #ffffff;        /* фон сторінки */
+  --bg-alt: #F2F2F2;          /* фон альтернативних секцій */
+  --border-color: #cccccc;    /* межі полів форми */
+
+  --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Nunito Sans', Georgia, 'Times New Roman', serif;
+
+  --transition-fast: 0.2s ease;
+}
+
+/* ---  Base --- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text-color);
+  background: var(--bg-color);
+  line-height: 1.6;
+}
+
+/* ---  Типографічна ієрархія --- */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  margin: 0 0 .5em;
+  color: var(--text-color);
+}
+h1 { font-size: 2.6em; font-weight: 700; line-height: 1.15; }
+h2 { font-size: 1.9em; font-weight: 700; color: var(--primary-color); }
+h3 { font-size: 1.1em; font-weight: 600; }
+p  { font-size: 1em; margin: 0 0 1em; }
+
+/* ---  Посилання --- */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover { color: var(--primary-light); }
+
+/* header/footer navigation links не мають бути фіолетовими на світлому тлі —
+   стилізуємо окремо, зберігаючи var(--text-color) як базу і primary як hover */
+header.site-header nav a,
+footer.site-footer nav a {
+  color: var(--text-color);
+}
+header.site-header nav a:hover,
+footer.site-footer nav a:hover {
+  color: var(--primary-color);
+}
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ---  Header / nav --- */
+header.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: var(--bg-alt);
+}
+header.site-header .logo { font-style: italic; font-weight: bold; color: var(--primary-color); }
+header.site-header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  font-size: .9em;
+}
+
+/* ---  Hero --- */
+#hero { padding: 60px 24px; background: var(--bg-alt); }
+#hero .wrap { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+
+/* ---  Кнопки-заклики (CTA) --- */
+.cta-button {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 12px 28px;
+  background: var(--primary-color);
+  color: #fff;
+  border-radius: 30px;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+.cta-button:hover {
+  background: var(--primary-light);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ---  Секції: відступи для «повітря» --- */
+section { padding: 50px 24px; }
+
+/* ---  About facts --- */
+#about .facts {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+#about .facts div { flex: 1 1 200px; text-align: center; }
+
+/* ---  Зображення в текстових блоках --- */
+#hero img, #history img, #feature img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+#history .wrap, #feature .wrap { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
+#history .text-block, #feature .text-block { flex: 2 1 400px; }
+#history img, #feature img { flex: 1 1 260px; }
+
+#history aside {
+  background: var(--bg-alt);
+  border-left: 4px solid var(--primary-light);
+  padding: 16px 20px;
+  font-style: italic;
+  margin-top: 16px;
+}
+
+/* ---  Картки «Догляд» --- */
+#care .card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+#care article {
+  background: var(--bg-alt);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: transform var(--transition-fast);
+}
+#care article:hover { transform: translateY(-4px); }
+#care article h3 { color: var(--secondary-color); }
+
+/* ---  Форма контактів --- */
+#contacts { background: var(--bg-alt); }
+#contacts form { max-width: 600px; margin-top: 24px; }
+
+.form-group { margin-bottom: 18px; display: flex; flex-direction: column; }
+.form-group label { margin-bottom: 6px; font-weight: 600; font-size: .9em; }
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 1em;
+  color: var(--text-color);
+  background: #fff;
+  transition: border-color var(--transition-fast);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.checkbox-group { flex-direction: row; align-items: center; gap: 8px; }
+.checkbox-group label { margin-bottom: 0; font-weight: normal; }
+
+#contacts button[type="submit"] {
+  padding: 12px 28px;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+#contacts button[type="submit"]:hover { background: var(--primary-light); }
+
+/* ---  CTA-блок --- */
+#cta {
+  background: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  padding: 60px 24px;
+}
+#cta h2 { color: #fff; }
+#cta .cta-button {
+  background: #fff;
+  color: var(--primary-color);
+}
+#cta .cta-button:hover {
+  background: var(--bg-alt);
+  color: var(--primary-color);
+}
+
+/* ---  Footer --- */
+footer.site-footer {
+  background: var(--bg-alt);
+  padding: 30px 24px;
+  text-align: center;
+  font-size: .9em;
+}
+footer.site-footer nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 12px 0;
+  padding: 0;
+}
