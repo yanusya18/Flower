@@ -109,6 +109,45 @@
       border-radius: 30px;
     }
 
+    /* --- images inside text blocks --- */
+    #hero img, #history img, #feature img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+    }
+    #history .wrap, #feature .wrap { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
+    #history .text-block, #feature .text-block { flex: 2 1 400px; }
+    #history img, #feature img { flex: 1 1 260px; }
+
+    /* --- contact form --- */
+    #contacts { background: var(--gray-light); }
+    #contacts form { max-width: 600px; margin-top: 24px; }
+    .form-group { margin-bottom: 18px; display: flex; flex-direction: column; }
+    .form-group label { margin-bottom: 6px; font-weight: bold; font-size: .9em; }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group textarea {
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 1em;
+    }
+    .checkbox-group { flex-direction: row; align-items: center; gap: 8px; }
+    .checkbox-group label { margin-bottom: 0; font-weight: normal; }
+    #contacts button[type="submit"] {
+      padding: 12px 28px;
+      background: var(--purple);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    #contacts button[type="submit"]:hover { background: var(--purple-light); }
+
     /* --- footer --- */
     footer.site-footer {
       background: var(--gray-light);
@@ -138,6 +177,7 @@
         <li><a href="#history">Історія</a></li>
         <li><a href="#feature">Особливості</a></li>
         <li><a href="#care">Догляд</a></li>
+        <li><a href="#contacts">Контакти</a></li>
       </ul>
     </nav>
   </header>
@@ -157,6 +197,9 @@
           </p>
           <a href="#about" class="cta-button">Дізнатися більше →</a>
         </div>
+        <img src="https://placehold.co/500x400/966BF2/ffffff?text=Mirabilis+Jalapa"
+             alt="Квітка Mirabilis Jalapa з яскраво-рожевими пелюстками, що розкривається у вечірніх сутінках"
+             width="500" height="400">
       </div>
     </section>
 
@@ -179,7 +222,10 @@
     <!-- HISTORY: основний текст + aside із додатковим/побічним фактом -->
     <section id="history">
       <div class="wrap">
-        <div style="flex: 2 1 400px;">
+        <img src="https://placehold.co/400x300/6E3DD9/ffffff?text=Історія"
+             alt="Квітка Mirabilis Jalapa крупним планом, поширена в Європі з XVI століття"
+             width="400" height="300">
+        <div class="text-block">
           <h2>Історія</h2>
           <p>
             Mirabilis jalapa походить із тропічних регіонів Центральної та
@@ -187,23 +233,28 @@
             завоювала популярність завдяки своїй незвичайній красі та здатності
             цвісти ввечері.
           </p>
+          <!-- ASIDE: побічна інформація, не є основним текстом розділу -->
+          <aside>
+            «У деяких культурах цю квітку вважають символом любові та таємниці.»
+          </aside>
         </div>
-        <!-- ASIDE: побічна інформація, не є основним текстом розділу -->
-        <aside>
-          «У деяких культурах цю квітку вважають символом любові та таємниці.»
-        </aside>
       </div>
     </section>
 
     <!-- FEATURE: пояснення ключової особливості квітки -->
     <section id="feature">
       <div class="wrap">
-        <h2>Особливість квітки</h2>
-        <p>
-          Mirabilis jalapa відкривається переважно ввечері, коли сонце заходить,
-          і наповнює повітря приємним, ніжним ароматом. Саме тому її називають
-          «нічною красунею».
-        </p>
+        <div class="text-block">
+          <h2>Особливість квітки</h2>
+          <p>
+            Mirabilis jalapa відкривається переважно ввечері, коли сонце заходить,
+            і наповнює повітря приємним, ніжним ароматом. Саме тому її називають
+            «нічною красунею».
+          </p>
+        </div>
+        <img src="https://placehold.co/400x300/195900/ffffff?text=Ввечері"
+             alt="Квітка Mirabilis Jalapa, що розкривається ввечері та випромінює ніжний аромат"
+             width="400" height="300">
       </div>
     </section>
 
@@ -232,6 +283,41 @@
       </div>
     </section>
 
+    <!-- CONTACTS: форма зворотного зв'язку -->
+    <section id="contacts">
+      <div class="wrap">
+        <h2>Контакти</h2>
+        <p>Маєте запитання про квітку чи проєкт? Напишіть нам.</p>
+        <form action="#" method="post">
+          <div class="form-group">
+            <label for="name">Ім'я *</label>
+            <input type="text" id="name" name="name" placeholder="Ваше ім'я" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="topic">Тема звернення</label>
+            <select id="topic" name="topic">
+              <option value="general">Загальне питання</option>
+              <option value="collab">Співпраця</option>
+              <option value="care">Питання про догляд за квіткою</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Повідомлення *</label>
+            <textarea id="message" name="message" rows="5" placeholder="Напишіть ваше повідомлення..." required></textarea>
+          </div>
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent">Погоджуюсь на обробку персональних даних</label>
+          </div>
+          <button type="submit">Надіслати</button>
+        </form>
+      </div>
+    </section>
+
     <!-- CTA: підсумковий заклик до дії перед футером -->
     <section id="cta">
       <div class="wrap">
@@ -251,6 +337,7 @@
         <li><a href="#history">Історія</a></li>
         <li><a href="#feature">Особливості</a></li>
         <li><a href="#care">Догляд</a></li>
+        <li><a href="#contacts">Контакти</a></li>
       </ul>
     </nav>
     <p>Екзотична квітка, яка дарує красу навіть у темряві.</p>
