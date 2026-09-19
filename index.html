@@ -1,11 +1,261 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming soon</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Heure Bleue — Mirabilis Jalapa</title>
+  <style>
+    :root {
+      --purple: #6E3DD9;
+      --purple-light: #966BF2;
+      --green-dark: #195900;
+      --yellow: #FDFF70;
+      --gray-light: #F2F2F2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #2b2b2b;
+      background: #fff;
+      line-height: 1.6;
+    }
+    h1, h2, h3 { font-family: Georgia, serif; margin: 0 0 .5em; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* --- header / nav --- */
+    header.site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      background: var(--gray-light);
+    }
+    header.site-header .logo { font-style: italic; font-weight: bold; color: var(--purple); }
+    header.site-header nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+      margin: 0;
+      padding: 0;
+      font-size: .9em;
+    }
+
+    /* --- hero --- */
+    #hero { padding: 60px 24px; background: var(--gray-light); }
+    #hero .wrap { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+    #hero h1 { font-size: 2.4em; }
+    #hero .cta-button {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 28px;
+      background: var(--purple);
+      color: #fff;
+      border-radius: 30px;
+    }
+
+    /* --- generic section spacing --- */
+    section { padding: 50px 24px; }
+    section h2 { color: var(--purple); }
+
+    /* --- about facts --- */
+    #about .facts {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    #about .facts div { flex: 1 1 200px; text-align: center; }
+
+    /* --- history (with aside) --- */
+    #history .wrap { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
+    #history aside {
+      flex: 1 1 260px;
+      background: var(--gray-light);
+      border-left: 4px solid var(--purple-light);
+      padding: 16px 20px;
+      font-style: italic;
+    }
+
+    /* --- care cards --- */
+    #care .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+    #care article {
+      background: var(--gray-light);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    #care article h3 { color: var(--green-dark); font-size: 1em; }
+
+    /* --- cta block --- */
+    #cta {
+      background: var(--purple);
+      color: #fff;
+      text-align: center;
+      padding: 60px 24px;
+    }
+    #cta .cta-button {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 28px;
+      background: #fff;
+      color: var(--purple);
+      border-radius: 30px;
+    }
+
+    /* --- footer --- */
+    footer.site-footer {
+      background: var(--gray-light);
+      padding: 30px 24px;
+      text-align: center;
+      font-size: .9em;
+    }
+    footer.site-footer nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 12px 0;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
-    <h1>Coming soon</h1>
+
+  <!-- HEADER: логотип проєкту + головна навігація сторінкою -->
+  <header class="site-header">
+    <div class="logo">Mirabilis Jalapa</div>
+    <!-- NAV: посилання-якорі на кожну секцію main -->
+    <nav aria-label="Головна навігація">
+      <ul>
+        <li><a href="#about">Про квітку</a></li>
+        <li><a href="#history">Історія</a></li>
+        <li><a href="#feature">Особливості</a></li>
+        <li><a href="#care">Догляд</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO: перший екран, єдиний h1 сторінки -->
+    <section id="hero">
+      <div class="wrap">
+        <div>
+          <p>Mirabilis jalapa</p>
+          <h1>Квітка, що розквітає разом із вечором</h1>
+          <p>
+            Mirabilis jalapa — екзотична багаторічна рослина з яскравими квітами,
+            які розкриваються ввечері. Її часто називають «нічною красунею» за
+            здатність оживати з настанням сутінків.
+          </p>
+          <a href="#about" class="cta-button">Дізнатися більше →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT: короткий вступний опис квітки із трьома фактами-іконками -->
+    <section id="about">
+      <div class="wrap">
+        <h2>Що це за квітка?</h2>
+        <p>
+          Mirabilis jalapa — це екзотична багаторічна рослина, відома своїми
+          яскравими квітами, які розкриваються ввечері.
+        </p>
+        <div class="facts">
+          <div><h3>🌙 Цвіте ввечері</h3></div>
+          <div><h3>🌸 Має ніжні лійкоподібні квіти</h3></div>
+          <div><h3>🌿 Походить із тропічних регіонів Америки</h3></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORY: основний текст + aside із додатковим/побічним фактом -->
+    <section id="history">
+      <div class="wrap">
+        <div style="flex: 2 1 400px;">
+          <h2>Історія</h2>
+          <p>
+            Mirabilis jalapa походить із тропічних регіонів Центральної та
+            Південної Америки. У Європу вона потрапила у XVI столітті, де швидко
+            завоювала популярність завдяки своїй незвичайній красі та здатності
+            цвісти ввечері.
+          </p>
+        </div>
+        <!-- ASIDE: побічна інформація, не є основним текстом розділу -->
+        <aside>
+          «У деяких культурах цю квітку вважають символом любові та таємниці.»
+        </aside>
+      </div>
+    </section>
+
+    <!-- FEATURE: пояснення ключової особливості квітки -->
+    <section id="feature">
+      <div class="wrap">
+        <h2>Особливість квітки</h2>
+        <p>
+          Mirabilis jalapa відкривається переважно ввечері, коли сонце заходить,
+          і наповнює повітря приємним, ніжним ароматом. Саме тому її називають
+          «нічною красунею».
+        </p>
+      </div>
+    </section>
+
+    <!-- CARE: чотири самодостатні картки-поради, кожна — окремий <article> -->
+    <section id="care">
+      <div class="wrap">
+        <h2>Догляд</h2>
+        <div class="card-grid">
+          <article>
+            <h3>☀️ Освітлення</h3>
+            <p>Любить яскраве світло, але добре росте і в півтіні.</p>
+          </article>
+          <article>
+            <h3>💧 Полив</h3>
+            <p>Регулярний, без застою води в ґрунті.</p>
+          </article>
+          <article>
+            <h3>🌱 Ґрунт</h3>
+            <p>Легкий, родючий, з добрим дренажем.</p>
+          </article>
+          <article>
+            <h3>🌡️ Температура</h3>
+            <p>Оптимально 18–28 °C. Не любить сильну спеку та холод.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA: підсумковий заклик до дії перед футером -->
+    <section id="cta">
+      <div class="wrap">
+        <h2>Дозволь красі розквітати після заходу сонця</h2>
+        <a href="#hero" class="cta-button">Дізнатися більше →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER: логотип, повторна навігація, копірайт -->
+  <footer class="site-footer">
+    <div class="logo">Mirabilis Jalapa</div>
+    <nav aria-label="Навігація у футері">
+      <ul>
+        <li><a href="#about">Про квітку</a></li>
+        <li><a href="#history">Історія</a></li>
+        <li><a href="#feature">Особливості</a></li>
+        <li><a href="#care">Догляд</a></li>
+      </ul>
+    </nav>
+    <p>Екзотична квітка, яка дарує красу навіть у темряві.</p>
+    <p>&copy; 2026 L'Heure Bleue</p>
+  </footer>
+
 </body>
 </html>
