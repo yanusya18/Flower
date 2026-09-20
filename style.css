@@ -1,4 +1,3 @@
-
 /* ---  Custom properties (кольорова палітра проєкту) --- */
 :root {
   --primary-color: #6E3DD9;   /* основний фіолетовий — акценти, кнопки, h2 */
@@ -25,7 +24,18 @@ body {
   color: var(--text-color);
   background: var(--bg-color);
   line-height: 1.6;
+  /* Додаткове завдання: загальний макет сторінки через grid-template-areas */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  min-height: 100vh;
 }
+header.site-header { grid-area: header; }
+main { grid-area: main; }
+footer.site-footer { grid-area: footer; }
 
 /* ---  Типографічна ієрархія --- */
 h1, h2, h3 {
@@ -76,7 +86,6 @@ header.site-header nav {
   font-size: .9em;
 }
 
-
 /* ---  Hero --- */
 #hero { padding: 60px 24px; background: var(--bg-alt); }
 #hero .wrap { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
@@ -97,17 +106,25 @@ header.site-header nav {
   transform: translateY(-2px);
 }
 
-/* ---  Секції: відступи для «повітря» --- */
+/* --- Секції: відступи для «повітря» --- */
 section { padding: 50px 24px; }
 
-/* ---  About facts --- */
+/* ---  About facts: галерея-«факти», реалізована через CSS Grid ---
+   Порівняння з Flexbox : тут колонки мають однакову ширину
+   і вирівняні по вертикалі одна під одною — це вже двовимірний макет
+   (колонки + можливі рядки), тому Grid зручніший за Flexbox, який
+   керує лише одним напрямком розташування за раз. */
 #about .facts {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  flex-wrap: wrap;
   margin-top: 24px;
 }
-#about .facts div { flex: 1 1 200px; text-align: center; }
+#about .facts div { text-align: center; }
+
+@media (max-width: 640px) {
+  #about .facts { grid-template-columns: 1fr; }
+}
 
 /* ---  Зображення в текстових блоках --- */
 #hero img, #history img, #feature img {
@@ -190,7 +207,7 @@ section { padding: 50px 24px; }
 }
 #contacts button[type="submit"]:hover { background: var(--primary-light); }
 
-/* --- CTA-блок --- */
+/* ---  CTA-блок --- */
 #cta {
   background: var(--primary-color);
   color: #fff;
