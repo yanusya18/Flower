@@ -15,7 +15,8 @@
   --transition-fast: 0.2s ease;
 }
 
-/* ---  Base --- */
+/* ---  Base (mobile-first!) --- */
+html { font-size: 100%; } /* 1rem = 16px */
 * { box-sizing: border-box; }
 
 body {
@@ -24,7 +25,6 @@ body {
   color: var(--text-color);
   background: var(--bg-color);
   line-height: 1.6;
-  /* Додаткове завдання: загальний макет сторінки через grid-template-areas */
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
@@ -37,16 +37,18 @@ header.site-header { grid-area: header; }
 main { grid-area: main; }
 footer.site-footer { grid-area: footer; }
 
-/* ---  Типографічна ієрархія --- */
+img { max-width: 100%; height: auto; } /* жодне зображення не виходить за межі контейнера */
+
+/* ---  Типографічна ієрархія (rem замість px/em) --- */
 h1, h2, h3 {
   font-family: var(--font-heading);
   margin: 0 0 .5em;
   color: var(--text-color);
 }
-h1 { font-size: 2.6em; font-weight: 700; line-height: 1.15; }
-h2 { font-size: 1.9em; font-weight: 700; color: var(--primary-color); }
-h3 { font-size: 1.1em; font-weight: 600; }
-p  { font-size: 1em; margin: 0 0 1em; }
+h1 { font-size: 2rem;    font-weight: 700; line-height: 1.15; }
+h2 { font-size: 1.5rem;  font-weight: 700; color: var(--primary-color); }
+h3 { font-size: 1.05rem; font-weight: 600; }
+p  { font-size: 1rem; margin: 0 0 1em; }
 
 /* ---  Посилання --- */
 a {
@@ -56,8 +58,6 @@ a {
 }
 a:hover { color: var(--primary-light); }
 
-/* header/footer navigation links не мають бути фіолетовими на світлому тлі —
-   стилізуємо окремо, зберігаючи var(--text-color) як базу і primary як hover */
 header.site-header nav a,
 footer.site-footer nav a {
   color: var(--text-color);
@@ -67,34 +67,36 @@ footer.site-footer nav a:hover {
   color: var(--primary-color);
 }
 
-.wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
 
-/* ---  Header / nav --- */
+/* ---  Header / nav (mobile: стовпчиком) --- */
 header.site-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: 1rem;
   background: var(--bg-alt);
 }
 header.site-header .logo { font-style: italic; font-weight: bold; color: var(--primary-color); }
 
 header.site-header nav {
   display: flex;
-  align-items: center;
-  gap: 24px;
-  font-size: .9em;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .6rem;
+  font-size: .95rem;
 }
 
-/* ---  Hero --- */
-#hero { padding: 60px 24px; background: var(--bg-alt); }
-#hero .wrap { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+/* ---  Hero (mobile: зображення під текстом) --- */
+#hero { padding: 2.5rem 1rem; background: var(--bg-alt); }
+#hero .wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
 
 /* ---  Кнопки-заклики (CTA) --- */
 .cta-button {
   display: inline-block;
-  margin-top: 16px;
-  padding: 12px 28px;
+  margin-top: 1rem;
+  padding: .75rem 1.75rem;
   background: var(--primary-color);
   color: #fff;
   border-radius: 30px;
@@ -106,60 +108,54 @@ header.site-header nav {
   transform: translateY(-2px);
 }
 
-/* --- Секції: відступи для «повітря» --- */
-section { padding: 50px 24px; }
+/* ---  Секції: відступи (mobile — компактніші) --- */
+section { padding: 2.5rem 1rem; }
 
-/* ---  About facts: галерея-«факти», реалізована через CSS Grid ---
-   Порівняння з Flexbox : тут колонки мають однакову ширину
-   і вирівняні по вертикалі одна під одною — це вже двовимірний макет
-   (колонки + можливі рядки), тому Grid зручніший за Flexbox, який
-   керує лише одним напрямком розташування за раз. */
+/* ---  About facts: mobile — одна колонка, Grid розкривається з 768px --- */
 #about .facts {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 24px;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 #about .facts div { text-align: center; }
 
-@media (max-width: 640px) {
-  #about .facts { grid-template-columns: 1fr; }
-}
-
-/* ---  Зображення в текстових блоках --- */
+/* ---  Історія / Особливість: mobile — фото над текстом, на всю ширину --- */
 #hero img, #history img, #feature img {
-  max-width: 100%;
-  height: auto;
   border-radius: 8px;
   display: block;
 }
-#history .wrap, #feature .wrap { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
-#history .text-block, #feature .text-block { flex: 2 1 400px; }
-#history img, #feature img { flex: 1 1 260px; }
+#history .wrap, #feature .wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+#history .text-block, #feature .text-block { flex: none; width: 100%; }
+#history img, #feature img { flex: none; width: 100%; }
 
 #history aside {
   background: var(--bg-alt);
   border-left: 4px solid var(--primary-light);
-  padding: 16px 20px;
+  padding: 1rem 1.25rem;
   font-style: italic;
-  margin-top: 16px;
+  margin-top: 1rem;
 }
 
-/* ---  Картки «Догляд»: група однотипних елементів  --- */
+/* ---  Картки «Догляд»: Flexbox, природно переносяться в 1 колонку на вузькому екрані --- */
 #care .card-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 24px;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
 }
 #care article {
-  flex: 1 1 200px; /* рівномірний розподіл простору */
+  flex: 1 1 200px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* вирівнювання вмісту картки */
+  align-items: center;
   background: var(--bg-alt);
   border-radius: 8px;
-  padding: 20px;
+  padding: 1.25rem;
   text-align: center;
   transition: transform var(--transition-fast);
 }
@@ -168,19 +164,19 @@ section { padding: 50px 24px; }
 
 /* ---  Форма контактів --- */
 #contacts { background: var(--bg-alt); }
-#contacts form { max-width: 600px; margin-top: 24px; }
+#contacts form { max-width: 37.5rem; margin-top: 1.5rem; }
 
-.form-group { margin-bottom: 18px; display: flex; flex-direction: column; }
-.form-group label { margin-bottom: 6px; font-weight: 600; font-size: .9em; }
+.form-group { margin-bottom: 1.1rem; display: flex; flex-direction: column; }
+.form-group label { margin-bottom: .4rem; font-weight: 600; font-size: .9rem; }
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group select,
 .form-group textarea {
-  padding: 10px 12px;
+  padding: .6rem .75rem;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   font-family: var(--font-body);
-  font-size: 1em;
+  font-size: 1rem;
   color: var(--text-color);
   background: #fff;
   transition: border-color var(--transition-fast);
@@ -192,16 +188,16 @@ section { padding: 50px 24px; }
   border-color: var(--primary-color);
 }
 
-.checkbox-group { flex-direction: row; align-items: center; gap: 8px; }
+.checkbox-group { flex-direction: row; align-items: center; gap: .5rem; }
 .checkbox-group label { margin-bottom: 0; font-weight: normal; }
 
 #contacts button[type="submit"] {
-  padding: 12px 28px;
+  padding: .75rem 1.75rem;
   background: var(--primary-color);
   color: #fff;
   border: none;
   border-radius: 30px;
-  font-size: 1em;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color var(--transition-fast);
 }
@@ -212,7 +208,7 @@ section { padding: 50px 24px; }
   background: var(--primary-color);
   color: #fff;
   text-align: center;
-  padding: 60px 24px;
+  padding: 3rem 1rem;
 }
 #cta h2 { color: #fff; }
 #cta .cta-button {
@@ -227,15 +223,64 @@ section { padding: 50px 24px; }
 /* ---  Footer --- */
 footer.site-footer {
   background: var(--bg-alt);
-  padding: 30px 24px;
+  padding: 1.75rem 1rem;
   text-align: center;
-  font-size: .9em;
+  font-size: .9rem;
 }
 footer.site-footer nav {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin: 12px 0;
+  gap: .75rem;
+  margin: .75rem 0;
+}
+
+/* =========================================================
+   медіа-запит від 768px — розширення macета
+   для планшетів і десктопів (mobile-first підхід)
+   ========================================================= */
+@media (min-width: 768px) {
+  .wrap { padding: 0 1.5rem; }
+
+  header.site-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+  }
+  header.site-header nav {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: .9rem;
+  }
+
+  #hero { padding: 3.75rem 1.5rem; }
+  #hero .wrap { flex-direction: row; align-items: center; gap: 2.5rem; }
+
+  section { padding: 3.125rem 1.5rem; }
+
+  h1 { font-size: 2.6rem; }
+  h2 { font-size: 1.9rem; }
+
+  #about .facts { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+  #history .wrap, #feature .wrap { flex-direction: row; align-items: flex-start; gap: 2.5rem; }
+  #history .text-block, #feature .text-block { flex: 2 1 400px; width: auto; }
+  #history img, #feature img { flex: 1 1 260px; width: auto; }
+
+  footer.site-footer nav { flex-direction: row; flex-wrap: wrap; gap: 1.25rem; }
+
+  #cta { padding: 3.75rem 1.5rem; }
+}
+
+/* =========================================================
+   Додаткове завдання: ще один breakpoint для великих екранів
+   ========================================================= */
+@media (min-width: 1200px) {
+  .wrap { max-width: 1200px; padding: 0 2rem; }
+  section { padding: 4.5rem 2rem; }
+  #hero { padding: 5rem 2rem; }
+  #cta { padding: 4.5rem 2rem; }
 }
