@@ -1,4 +1,5 @@
-/* ---  Custom properties (кольорова палітра проєкту) --- */
+
+/* --- 1. Custom properties (кольорова палітра проєкту) --- */
 :root {
   --primary-color: #6E3DD9;   /* основний фіолетовий — акценти, кнопки, h2 */
   --primary-light: #966BF2;   /* світліший фіолетовий — hover-стан */
@@ -8,11 +9,33 @@
   --bg-color: #ffffff;        /* фон сторінки */
   --bg-alt: #F2F2F2;          /* фон альтернативних секцій */
   --border-color: #cccccc;    /* межі полів форми */
+  --surface-color: #ffffff;   /* фон полів форми, інвертованих кнопок */
+  --text-on-primary: #ffffff; /* колір тексту поверх primary-color фону */
 
   --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-body: 'Nunito Sans', Georgia, 'Times New Roman', serif;
 
   --transition-fast: 0.2s ease;
+}
+
+/* =========================================================
+   темна тема — альтернативний набір custom properties.
+   Активується атрибутом data-theme="dark" на <html>
+   (у DevTools: Elements → <html> → Add attribute data-theme="dark").
+   Перевизначаємо лише самі змінні — решта CSS не змінюється,
+   бо весь проєкт уже побудований на var(--...) з Заняття 5.
+   ========================================================= */
+[data-theme="dark"] {
+  --primary-color: #A78BFA;   /* світліший фіолетовий  */
+  --primary-light: #C4B5FD;
+  --secondary-color: #7CD992; /* світліший зелений для карток «Догляд» */
+  --accent-color: #FFF176;
+  --text-color: #F2F0FA;      /* майже білий текст */
+  --bg-color: #121212;
+  --bg-alt: #1E1E2A;
+  --border-color: #55516B;
+  --surface-color: #1E1E2A;   /* фон полів форми в темній темі */
+  --text-on-primary: #121212; /* темний текст на світло-фіолетових кнопках*/
 }
 
 /* ---  Base (mobile-first!) --- */
@@ -37,7 +60,7 @@ header.site-header { grid-area: header; }
 main { grid-area: main; }
 footer.site-footer { grid-area: footer; }
 
-img { max-width: 100%; height: auto; } /* жодне зображення не виходить за межі контейнера */
+img { max-width: 100%; height: auto; } /*жодне зображення не виходить за межі контейнера */
 
 /* ---  Типографічна ієрархія (rem замість px/em) --- */
 h1, h2, h3 {
@@ -88,6 +111,21 @@ header.site-header nav {
   font-size: .95rem;
 }
 
+/* Кнопка-перемикач теми (заготовка) */
+#theme-toggle {
+  font-family: var(--font-body);
+  font-size: .9rem;
+  padding: .4rem .9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+#theme-toggle:hover { border-color: var(--primary-color); color: var(--primary-color); }
+#theme-toggle:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+
 /* ---  Hero (mobile: зображення під текстом) --- */
 #hero { padding: 2.5rem 1rem; background: var(--bg-alt); }
 #hero .wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
@@ -98,13 +136,13 @@ header.site-header nav {
   margin-top: 1rem;
   padding: .75rem 1.75rem;
   background: var(--primary-color);
-  color: #fff;
+  color: var(--text-on-primary);
   border-radius: 30px;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  transition: background-color var(--transition-fast), transform var(--transition-fast), color var(--transition-fast);
 }
 .cta-button:hover {
   background: var(--primary-light);
-  color: #fff;
+  color: var(--text-on-primary);
   transform: translateY(-2px);
 }
 
@@ -178,8 +216,8 @@ section { padding: 2.5rem 1rem; }
   font-family: var(--font-body);
   font-size: 1rem;
   color: var(--text-color);
-  background: #fff;
-  transition: border-color var(--transition-fast);
+  background: var(--surface-color);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
 }
 .form-group input:focus,
 .form-group select:focus,
@@ -194,25 +232,25 @@ section { padding: 2.5rem 1rem; }
 #contacts button[type="submit"] {
   padding: .75rem 1.75rem;
   background: var(--primary-color);
-  color: #fff;
+  color: var(--text-on-primary);
   border: none;
   border-radius: 30px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 #contacts button[type="submit"]:hover { background: var(--primary-light); }
 
 /* ---  CTA-блок --- */
 #cta {
   background: var(--primary-color);
-  color: #fff;
+  color: var(--text-on-primary);
   text-align: center;
   padding: 3rem 1rem;
 }
-#cta h2 { color: #fff; }
+#cta h2 { color: var(--text-on-primary); }
 #cta .cta-button {
-  background: #fff;
+  background: var(--surface-color);
   color: var(--primary-color);
 }
 #cta .cta-button:hover {
@@ -237,7 +275,7 @@ footer.site-footer nav {
 }
 
 /* =========================================================
-   медіа-запит від 768px — розширення macета
+  медіа-запит від 768px — розширення macета
    для планшетів і десктопів (mobile-first підхід)
    ========================================================= */
 @media (min-width: 768px) {
