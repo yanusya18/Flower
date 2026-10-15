@@ -1,3 +1,8 @@
+/* =========================================================
+   style.css — L'Heure Bleue (Mirabilis Jalapa)
+   Заняття 5: кольори/типографіка · 6: Flexbox · 7: Grid
+   Заняття 8: адаптивна верстка, mobile-first
+   ========================================================= */
 
 /* --- 1. Custom properties (кольорова палітра проєкту) --- */
 :root {
@@ -19,26 +24,26 @@
 }
 
 /* =========================================================
-   темна тема — альтернативний набір custom properties.
+   Заняття 9: темна тема — альтернативний набір custom properties.
    Активується атрибутом data-theme="dark" на <html>
    (у DevTools: Elements → <html> → Add attribute data-theme="dark").
    Перевизначаємо лише самі змінні — решта CSS не змінюється,
    бо весь проєкт уже побудований на var(--...) з Заняття 5.
    ========================================================= */
 [data-theme="dark"] {
-  --primary-color: #A78BFA;   /* світліший фіолетовий  */
+  --primary-color: #A78BFA;   /* світліший фіолетовий — читабельний на темному тлі */
   --primary-light: #C4B5FD;
   --secondary-color: #7CD992; /* світліший зелений для карток «Догляд» */
   --accent-color: #FFF176;
-  --text-color: #F2F0FA;      /* майже білий текст */
+  --text-color: #F2F0FA;      /* майже білий текст, контраст ~17:1 до фону */
   --bg-color: #121212;
   --bg-alt: #1E1E2A;
   --border-color: #55516B;
   --surface-color: #1E1E2A;   /* фон полів форми в темній темі */
-  --text-on-primary: #121212; /* темний текст на світло-фіолетових кнопках*/
+  --text-on-primary: #121212; /* темний текст на світло-фіолетових кнопках, контраст ~7:1 */
 }
 
-/* ---  Base (mobile-first!) --- */
+/* --- 2. Base (mobile-first!) --- */
 html { font-size: 100%; } /* 1rem = 16px */
 * { box-sizing: border-box; }
 
@@ -60,9 +65,9 @@ header.site-header { grid-area: header; }
 main { grid-area: main; }
 footer.site-footer { grid-area: footer; }
 
-img { max-width: 100%; height: auto; } /*жодне зображення не виходить за межі контейнера */
+img { max-width: 100%; height: auto; } /* крок 7: жодне зображення не виходить за межі контейнера */
 
-/* ---  Типографічна ієрархія (rem замість px/em) --- */
+/* --- 3. Типографічна ієрархія (rem замість px/em) --- */
 h1, h2, h3 {
   font-family: var(--font-heading);
   margin: 0 0 .5em;
@@ -73,7 +78,7 @@ h2 { font-size: 1.5rem;  font-weight: 700; color: var(--primary-color); }
 h3 { font-size: 1.05rem; font-weight: 600; }
 p  { font-size: 1rem; margin: 0 0 1em; }
 
-/* ---  Посилання --- */
+/* --- 4. Посилання --- */
 a {
   color: var(--primary-color);
   text-decoration: none;
@@ -92,7 +97,7 @@ footer.site-footer nav a:hover {
 
 .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
 
-/* ---  Header / nav (mobile: стовпчиком) --- */
+/* --- 5. Header / nav (mobile: стовпчиком, крок 5) --- */
 header.site-header {
   display: flex;
   flex-direction: column;
@@ -126,11 +131,11 @@ header.site-header nav {
 #theme-toggle:hover { border-color: var(--primary-color); color: var(--primary-color); }
 #theme-toggle:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
 
-/* ---  Hero (mobile: зображення під текстом) --- */
+/* --- 6. Hero (mobile: зображення під текстом) --- */
 #hero { padding: 2.5rem 1rem; background: var(--bg-alt); }
 #hero .wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
 
-/* ---  Кнопки-заклики (CTA) --- */
+/* --- 7. Кнопки-заклики (CTA) --- */
 .cta-button {
   display: inline-block;
   margin-top: 1rem;
@@ -146,10 +151,10 @@ header.site-header nav {
   transform: translateY(-2px);
 }
 
-/* ---  Секції: відступи (mobile — компактніші) --- */
+/* --- 8. Секції: відступи (mobile — компактніші) --- */
 section { padding: 2.5rem 1rem; }
 
-/* ---  About facts: mobile — одна колонка, Grid розкривається з 768px --- */
+/* --- 9. About facts: mobile — одна колонка, Grid розкривається з 768px --- */
 #about .facts {
   display: grid;
   grid-template-columns: 1fr;
@@ -158,7 +163,7 @@ section { padding: 2.5rem 1rem; }
 }
 #about .facts div { text-align: center; }
 
-/* ---  Історія / Особливість: mobile — фото над текстом, на всю ширину --- */
+/* --- 10. Історія / Особливість: mobile — фото над текстом, на всю ширину --- */
 #hero img, #history img, #feature img {
   border-radius: 8px;
   display: block;
@@ -179,7 +184,7 @@ section { padding: 2.5rem 1rem; }
   margin-top: 1rem;
 }
 
-/* ---  Картки «Догляд»: Flexbox, природно переносяться в 1 колонку на вузькому екрані --- */
+/* --- 11. Картки «Догляд»: Flexbox, природно переносяться в 1 колонку на вузькому екрані --- */
 #care .card-grid {
   display: flex;
   flex-wrap: wrap;
@@ -200,7 +205,7 @@ section { padding: 2.5rem 1rem; }
 #care article:hover { transform: translateY(-4px); }
 #care article h3 { color: var(--secondary-color); }
 
-/* ---  Форма контактів --- */
+/* --- 12. Форма контактів --- */
 #contacts { background: var(--bg-alt); }
 #contacts form { max-width: 37.5rem; margin-top: 1.5rem; }
 
@@ -241,7 +246,7 @@ section { padding: 2.5rem 1rem; }
 }
 #contacts button[type="submit"]:hover { background: var(--primary-light); }
 
-/* ---  CTA-блок --- */
+/* --- CTA-блок --- */
 #cta {
   background: var(--primary-color);
   color: var(--text-on-primary);
@@ -258,7 +263,7 @@ section { padding: 2.5rem 1rem; }
   color: var(--primary-color);
 }
 
-/* ---  Footer --- */
+/* --- Footer --- */
 footer.site-footer {
   background: var(--bg-alt);
   padding: 1.75rem 1rem;
@@ -321,4 +326,13 @@ footer.site-footer nav {
   section { padding: 4.5rem 2rem; }
   #hero { padding: 5rem 2rem; }
   #cta { padding: 4.5rem 2rem; }
+}
+
+/* =========================================================
+   Заняття 14: клас, що додається через JS (classList.add)
+   ========================================================= */
+header.site-header nav a.active {
+  color: var(--primary-color);
+  font-weight: 700;
+  border-bottom: 2px solid var(--primary-color);
 }
