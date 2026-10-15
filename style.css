@@ -16,6 +16,8 @@
   --border-color: #cccccc;    /* межі полів форми */
   --surface-color: #ffffff;   /* фон полів форми, інвертованих кнопок */
   --text-on-primary: #ffffff; /* колір тексту поверх primary-color фону */
+  --error-color: #B00020;     /* повідомлення про помилку */
+  --success-color: #1B6E2E;   /* повідомлення про успіх */
 
   --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-body: 'Nunito Sans', Georgia, 'Times New Roman', serif;
@@ -41,6 +43,8 @@
   --border-color: #55516B;
   --surface-color: #1E1E2A;   /* фон полів форми в темній темі */
   --text-on-primary: #121212; /* темний текст на світло-фіолетових кнопках, контраст ~7:1 */
+  --error-color: #FF8A95;
+  --success-color: #7CD992;
 }
 
 /* --- 2. Base (mobile-first!) --- */
@@ -246,7 +250,7 @@ section { padding: 2.5rem 1rem; }
 }
 #contacts button[type="submit"]:hover { background: var(--primary-light); }
 
-/* --- CTA-блок --- */
+/* --- 13. CTA-блок --- */
 #cta {
   background: var(--primary-color);
   color: var(--text-on-primary);
@@ -263,7 +267,7 @@ section { padding: 2.5rem 1rem; }
   color: var(--primary-color);
 }
 
-/* --- Footer --- */
+/* --- 14. Footer --- */
 footer.site-footer {
   background: var(--bg-alt);
   padding: 1.75rem 1rem;
@@ -280,7 +284,7 @@ footer.site-footer nav {
 }
 
 /* =========================================================
-  медіа-запит від 768px — розширення macета
+   Крок 4: медіа-запит від 768px — розширення macета
    для планшетів і десктопів (mobile-first підхід)
    ========================================================= */
 @media (min-width: 768px) {
@@ -335,4 +339,20 @@ header.site-header nav a.active {
   color: var(--primary-color);
   font-weight: 700;
   border-bottom: 2px solid var(--primary-color);
+}
+
+/* =========================================================
+   Заняття 15: повідомлення форми та стани валідації
+   ========================================================= */
+#form-message {
+  margin-top: 1rem;
+  font-weight: 600;
+  min-height: 1.5rem;
+}
+#form-message.error { color: var(--error-color); }
+#form-message.success { color: var(--success-color); }
+
+.form-group input.invalid,
+.form-group textarea.invalid {
+  border-color: var(--error-color);
 }

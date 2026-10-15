@@ -132,7 +132,7 @@
       <div class="wrap">
         <h2>Контакти</h2>
         <p>Маєте запитання про квітку чи проєкт? Напишіть нам.</p>
-        <form action="#" method="post">
+        <form id="contact-form" action="#" method="post" novalidate>
           <div class="form-group">
             <label for="name">Ім'я *</label>
             <input type="text" id="name" name="name" placeholder="Ваше ім'я" required>
@@ -159,6 +159,8 @@
           </div>
           <button type="submit">Надіслати</button>
         </form>
+        <!-- Повідомлення про помилку/успіх, яке заповнює script.js -->
+        <div id="form-message" role="status" aria-live="polite"></div>
       </div>
     </section>
 
