@@ -6,14 +6,14 @@
   <title>L'Heure Bleue — Mirabilis Jalapa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Lobster&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- HEADER: логотип проєкту + головна навігація сторінкою -->
   <header class="site-header">
-    <div class="logo">Mirabilis Jalapa</div>
+    <div class="logo">L'Heure Bleue</div>
     <!-- NAV: flex-контейнер з посиланнями-якорями на кожну секцію main -->
     <nav aria-label="Головна навігація">
       <a href="#about">Про квітку</a>
@@ -32,7 +32,7 @@
     <section id="hero">
       <div class="wrap">
         <div>
-          <p>Mirabilis jalapa</p>
+          <p class="eyebrow">Mirabilis jalapa</p>
           <h1>Квітка, що розквітає разом із вечором</h1>
           <p>
             Mirabilis jalapa — екзотична багаторічна рослина з яскравими квітами,
@@ -41,9 +41,9 @@
           </p>
           <a href="#about" class="cta-button">Дізнатися більше →</a>
         </div>
-        <img src="https://placehold.co/500x400/966BF2/ffffff?text=Mirabilis+Jalapa"
-             alt="Квітка Mirabilis Jalapa з яскраво-рожевими пелюстками, що розкривається у вечірніх сутінках"
-             width="500" height="400">
+        <img src="images/hero.webp"
+             alt="Фіолетова квітка Mirabilis Jalapa з блакитним метеликом на пелюстці"
+             width="512" height="418">
       </div>
     </section>
 
@@ -66,7 +66,7 @@
     <!-- HISTORY: основний текст + aside із додатковим/побічним фактом -->
     <section id="history">
       <div class="wrap">
-        <img src="https://placehold.co/400x300/6E3DD9/ffffff?text=Історія"
+        <img src="images/history.svg"
              alt="Квітка Mirabilis Jalapa крупним планом, поширена в Європі з XVI століття"
              width="400" height="300">
         <div class="text-block">
@@ -96,30 +96,30 @@
             «нічною красунею».
           </p>
         </div>
-        <img src="https://placehold.co/400x300/195900/ffffff?text=Ввечері"
+        <img src="images/feature.svg"
              alt="Квітка Mirabilis Jalapa, що розкривається ввечері та випромінює ніжний аромат"
              width="400" height="300">
       </div>
     </section>
 
-    <!-- CARE: чотири самодостатні картки-поради, кожна — окремий <article> -->
+    <!-- CARE: чотири самодостатні картки-поради, кожна — окремий <article class="card"> -->
     <section id="care">
       <div class="wrap">
         <h2>Догляд</h2>
         <div class="card-grid">
-          <article>
+          <article class="card">
             <h3>☀️ Освітлення</h3>
             <p>Любить яскраве світло, але добре росте і в півтіні.</p>
           </article>
-          <article>
+          <article class="card">
             <h3>💧 Полив</h3>
             <p>Регулярний, без застою води в ґрунті.</p>
           </article>
-          <article>
+          <article class="card">
             <h3>🌱 Ґрунт</h3>
             <p>Легкий, родючий, з добрим дренажем.</p>
           </article>
-          <article>
+          <article class="card">
             <h3>🌡️ Температура</h3>
             <p>Оптимально 18–28 °C. Не любить сильну спеку та холод.</p>
           </article>
