@@ -71,23 +71,31 @@ function validateEmail(value) {
   return "";
 }
 
-form.addEventListener("submit", function (event) {
+// Адреса тестового API (Заняття 18). jsonplaceholder приймає запити, але нічого не зберігає.
+const API_URL = "https://jsonplaceholder.typicode.com";
+const submitButton = form.querySelector('button[type="submit"]');
+
+// Заняття 18, кроки 4-8: async/await, збір даних, POST, response.ok, стан завантаження
+form.addEventListener("submit", async function (event) {
   event.preventDefault();
 
-  // 4. Отримання значень полів
-  const name = nameInput.value.trim();
-  const email = emailInput.value;
-  const message = messageInput.value.trim();
-  console.log("Відправка форми:", { name, email, message });
+  // Крок 5: збираємо дані форми в об'єкт {name, email, message}
+  const data = {
+    name: nameInput.value.trim(),
+    email: emailInput.value.trim(),
+    message: messageInput.value.trim(),
+  };
+  console.log("Відправка форми:", data);
 
-  if (name === "") {
+  // Валідація (Заняття 15) — до запиту
+  if (data.name === "") {
     nameInput.classList.add("invalid");
     showMessage("Введіть ім'я.", "error");
     return;
   }
   nameInput.classList.remove("invalid");
 
-  const emailError = validateEmail(email);
+  const emailError = validateEmail(data.email);
   if (emailError) {
     emailInput.classList.add("invalid");
     showMessage(emailError, "error");
@@ -95,15 +103,49 @@ form.addEventListener("submit", function (event) {
   }
   emailInput.classList.remove("invalid");
 
-  if (message === "") {
+  if (data.message === "") {
     messageInput.classList.add("invalid");
     showMessage("Введіть повідомлення.", "error");
     return;
   }
   messageInput.classList.remove("invalid");
 
-  showMessage("Дякуємо, " + name + "! Повідомлення надіслано.", "success");
-  form.reset();
+  // стан завантаження — вимикаємо кнопку на час запиту
+  const defaultButtonText = submitButton.textContent;
+  submitButton.disabled = true;
+  submitButton.textContent = "Надсилання…";
+  showMessage("", "");
+
+  try {
+    // POST із JSON
+    const response = await fetch(API_URL + "/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    // перевіряємо статус відповіді
+    if (!response.ok) {
+      throw new Error("Сервер повернув помилку " + response.status);
+    }
+
+    const result = await response.json();
+    console.log("Відповідь сервера:", result);
+    showMessage("Дякуємо, " + data.name + "! Повідомлення надіслано (№ " + result.id + ").", "success");
+    form.reset();
+  } catch (error) {
+    console.error("Помилка надсилання:", error);
+    if (error.name === "TypeError") {
+      // fetch кидає TypeError, коли немає мережі
+      showMessage("Не вдалося надіслати: перевірте інтернет-з'єднання й спробуйте ще раз.", "error");
+    } else {
+      showMessage("Не вдалося надіслати повідомлення. " + error.message + ". Спробуйте пізніше.", "error");
+    }
+  } finally {
+    // Повертаємо кнопку у звичайний стан у будь-якому разі
+    submitButton.disabled = false;
+    submitButton.textContent = defaultButtonText;
+  }
 });
 
 // 7. Додаткове завдання: inline-валідація email під час вводу
@@ -117,3 +159,42 @@ emailInput.addEventListener("input", function () {
     showMessage("Email виглядає коректно.", "success");
   }
 });
+
+// =========================================================
+// Заняття 18: GET-запит — відгуки з API
+// =========================================================
+const reviewsList = document.querySelector("#reviews-list");
+const reviewsStatus = document.querySelector("#reviews-status");
+
+// Кроки 3-4: async/await з try/catch (замість ланцюжка .then())
+async function loadReviews() {
+  try {
+    const response = await fetch(API_URL + "/posts?_limit=3");
+    if (!response.ok) {
+      throw new Error("Сервер повернув помилку " + response.status);
+    }
+    const posts = await response.json();
+    console.log("Отримано відгуків:", posts.length, posts);
+
+    reviewsList.innerHTML = "";
+    posts.forEach(function (post) {
+      const item = document.createElement("li");
+      item.className = "review-card";
+      const title = document.createElement("h3");
+      title.textContent = post.title; // textContent — безпечно, без HTML-ін'єкцій
+      const meta = document.createElement("p");
+      meta.className = "review-meta";
+      meta.textContent = "Відгук № " + post.id;
+      item.append(title, meta);
+      reviewsList.appendChild(item);
+    });
+    reviewsStatus.textContent = "";
+    reviewsStatus.className = "";
+  } catch (error) {
+    console.error("Помилка завантаження відгуків:", error);
+    reviewsStatus.textContent = "Не вдалося завантажити відгуки. Перевірте з'єднання й оновіть сторінку.";
+    reviewsStatus.className = "error";
+  }
+}
+
+loadReviews();

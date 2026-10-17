@@ -1,3 +1,9 @@
+@layer theme, base, legacy, components, utilities;
+
+/* Увесь «звичайний» CSS проєкту лежить у шарі legacy,
+   щоб Tailwind-утиліти (шар utilities) завжди мали вищий пріоритет. */
+@layer legacy {
+
 /* =========================================================
    style.css — L'Heure Bleue (Mirabilis Jalapa)
    Заняття 5: кольори/типографіка · 6: Flexbox · 7: Grid
@@ -36,7 +42,7 @@
   --font-size-display: 1.5rem;  /* Figma: Lobster 24 */
   --font-size-lg: 1.25rem;      /* Figma: Segoe UI 20 / Baskervville SC 20 */
   --font-size-base: 1rem;       /* Figma: Segoe UI 16 */
-  --font-size-h1: 2rem;         /* Figma: Lobster 32  */
+  --font-size-h1: 2rem;         /* Figma: Lobster ~32 (оцінено з макета; звірити в Dev Mode) */
 
   /* --- Відступи (шкала на кроці 4px; звірити з auto-layout у Figma) --- */
   --space-1: 0.25rem;  /* 4px */
@@ -179,27 +185,7 @@ header.site-header nav {
 #hero { padding: 2.5rem 1rem; background: var(--color-lavender); }
 #hero .wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
 
-/* --- 7. Кнопки-заклики (CTA) --- */
-.cta-button {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: .75rem 1.75rem;
-  background: var(--color-button);
-  color: var(--color-button-text);
-  border: 1px solid var(--color-text);
-  border-radius: 30px;
-  transition: background-color var(--transition-fast), transform var(--transition-fast), color var(--transition-fast);
-}
-.cta-button:hover {
-  background: var(--color-button-hover-bg);
-  color: var(--color-button-hover-text);
-  transform: translateY(-2px);
-}
-/* Figma: кнопка в hero — жовта із зеленим текстом */
-#hero .cta-button {
-  background: var(--color-accent);
-  color: var(--color-button-hover-text);
-}
+/* --- 7. Кнопки-заклики: переписано на Tailwind (див. src/input.css та index.html) --- */
 
 /* --- 8. Секції: відступи (mobile — компактніші) --- */
 section { padding: 2.5rem 1rem; }
@@ -234,26 +220,7 @@ section { padding: 2.5rem 1rem; }
   margin-top: 1rem;
 }
 
-/* --- 11. Картки «Догляд»: Flexbox, природно переносяться в 1 колонку на вузькому екрані --- */
-#care .card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-  margin-top: 1.5rem;
-}
-.card {
-  flex: 1 1 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: var(--color-card);
-  border-radius: var(--radius-card);
-  padding: var(--space-6) var(--space-4);
-  text-align: center;
-  transition: transform var(--transition-fast);
-}
-.card:hover { transform: translateY(-4px); }
-#care .card h3 { color: var(--color-text); }
+/* --- 11. Картки «Догляд»: переписано на Tailwind (секція #care в index.html) --- */
 
 /* --- 12. Форма контактів --- */
 #contacts { background: var(--color-bg-alt); }
@@ -406,3 +373,29 @@ header.site-header nav a.active {
   color: var(--color-text);
   margin-bottom: var(--space-2);
 }
+
+
+/* --- Заняття 18: відгуки з API та стан кнопки --- */
+#reviews-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.review-card {
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+}
+.review-card h3 { margin: 0 0 .5rem; font-weight: 600; }
+.review-meta { margin: 0; font-size: .85rem; opacity: .75; }
+#reviews-status.error { color: var(--color-error); font-weight: 600; }
+#contacts button[type="submit"]:disabled { opacity: .6; cursor: not-allowed; }
+
+@media (min-width: 768px) {
+  #reviews-list { grid-template-columns: repeat(3, 1fr); }
+}
+
+} /* кінець @layer legacy */
