@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Lobster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tailwind.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -39,7 +40,8 @@
             які розкриваються ввечері. Її часто називають «нічною красунею» за
             здатність оживати з настанням сутінків.
           </p>
-          <a href="#about" class="cta-button">Дізнатися більше →</a>
+          <a href="#about"
+             class="mt-4 inline-block rounded-lg border border-text bg-accent px-6 py-3 text-button-hover-text transition hover:-translate-y-0.5 hover:bg-button-hover-bg">Дізнатися більше →</a>
         </div>
         <img src="images/hero.webp"
              alt="Фіолетова квітка Mirabilis Jalapa з блакитним метеликом на пелюстці"
@@ -103,25 +105,26 @@
     </section>
 
     <!-- CARE: чотири самодостатні картки-поради, кожна — окремий <article class="card"> -->
-    <section id="care">
-      <div class="wrap">
-        <h2>Догляд</h2>
-        <div class="card-grid">
-          <article class="card">
-            <h3>☀️ Освітлення</h3>
-            <p>Любить яскраве світло, але добре росте і в півтіні.</p>
+    <section id="care" class="px-4 py-10 md:px-6 md:py-12">
+      <div class="mx-auto max-w-[1100px] px-4 md:px-6">
+        <h2 class="mb-2 text-xl font-semibold text-text">Догляд</h2>
+        <!-- Tailwind: 1 колонка → 2 (md) → 4 (lg), відступи gap-5, тіні shadow-md -->
+        <div class="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <article class="flex flex-col items-center rounded-lg bg-card p-6 text-center shadow-md transition hover:-translate-y-1 hover:shadow-lg">
+            <h3 class="mb-2 text-base font-normal text-text">☀️ Освітлення</h3>
+            <p class="m-0 text-base text-text">Любить яскраве світло, але добре росте і в півтіні.</p>
           </article>
-          <article class="card">
-            <h3>💧 Полив</h3>
-            <p>Регулярний, без застою води в ґрунті.</p>
+          <article class="flex flex-col items-center rounded-lg bg-card p-6 text-center shadow-md transition hover:-translate-y-1 hover:shadow-lg">
+            <h3 class="mb-2 text-base font-normal text-text">💧 Полив</h3>
+            <p class="m-0 text-base text-text">Регулярний, без застою води в ґрунті.</p>
           </article>
-          <article class="card">
-            <h3>🌱 Ґрунт</h3>
-            <p>Легкий, родючий, з добрим дренажем.</p>
+          <article class="flex flex-col items-center rounded-lg bg-card p-6 text-center shadow-md transition hover:-translate-y-1 hover:shadow-lg">
+            <h3 class="mb-2 text-base font-normal text-text">🌱 Ґрунт</h3>
+            <p class="m-0 text-base text-text">Легкий, родючий, з добрим дренажем.</p>
           </article>
-          <article class="card">
-            <h3>🌡️ Температура</h3>
-            <p>Оптимально 18–28 °C. Не любить сильну спеку та холод.</p>
+          <article class="flex flex-col items-center rounded-lg bg-card p-6 text-center shadow-md transition hover:-translate-y-1 hover:shadow-lg">
+            <h3 class="mb-2 text-base font-normal text-text">🌡️ Температура</h3>
+            <p class="m-0 text-base text-text">Оптимально 18–28 °C. Не любить сильну спеку та холод.</p>
           </article>
         </div>
       </div>
@@ -168,7 +171,7 @@
     <section id="cta">
       <div class="wrap">
         <h2>Дозволь красі розквітати після заходу сонця</h2>
-        <a href="#hero" class="cta-button">Дізнатися більше →</a>
+        <a href="#hero" class="btn">Дізнатися більше →</a>
       </div>
     </section>
 

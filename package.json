@@ -1,0 +1,17 @@
+{
+  "name": "flower",
+  "version": "1.0.0",
+  "description": "L'Heure Bleue — лендінг Mirabilis jalapa",
+  "main": "script.js",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./tailwind.css --minify",
+    "watch": "tailwindcss -i ./src/input.css -o ./tailwind.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

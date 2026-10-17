@@ -1,0 +1,44 @@
+/* =========================================================
+   src/input.css — вхідний файл Tailwind CSS (v4)
+   Збірка:  npm run build   →   tailwind.css
+   ========================================================= */
+
+/* Порядок шарів. Увесь «старий» CSS (style.css) лежить у шарі legacy,
+   тому Tailwind-утиліти (шар utilities) завжди перемагають його. */
+@layer theme, base, legacy, components, utilities;
+
+/* Підключаємо тільки theme та utilities БЕЗ preflight,
+   щоб скидання стилів Tailwind не зламало наявну верстку. */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Крок 7: кольори й шрифти дизайн-системи (Figma) у конфігурації теми.
+   Назви збігаються зі змінними у style.css, тому темна тема
+   ([data-theme="dark"]) працює і для Tailwind-класів. */
+@theme {
+  --color-primary: #6E3DD9;
+  --color-primary-light: #966BF2;
+  --color-secondary: #195900;
+  --color-accent: #FDFF70;
+  --color-text: #1F1F1F;
+  --color-bg-alt: #F7F7F7;
+  --color-card: #F2F2F2;
+  --color-lavender: #EAE1FC;
+  --color-cream: #FEFFDB;
+  --color-button: #195900;
+  --color-button-text: #FDFF70;
+  --color-button-hover-bg: #FFFA92;
+  --color-button-hover-text: #195900;
+
+  --font-display: 'Lobster', cursive;
+  --font-heading: 'Baskervville SC', Georgia, serif;
+}
+
+/* Додаткове завдання: повторюваний набір утиліт кнопки як компонент через @apply */
+@layer components {
+  .btn {
+    @apply mt-4 inline-block rounded-lg border border-text bg-button px-6 py-3
+           text-button-text transition hover:-translate-y-0.5
+           hover:bg-button-hover-bg hover:text-button-hover-text;
+  }
+}
