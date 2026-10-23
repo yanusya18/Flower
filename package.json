@@ -1,17 +1,23 @@
 {
-  "name": "flower",
-  "version": "1.0.0",
-  "description": "L'Heure Bleue — лендінг Mirabilis jalapa",
-  "main": "script.js",
+  "name": "portfolio-react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build": "tailwindcss -i ./src/input.css -o ./tailwind.css --minify",
-    "watch": "tailwindcss -i ./src/input.css -o ./tailwind.css --watch"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.3.3",
-    "tailwindcss": "^4.3.3"
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "oxlint": "^1.88.0",
+    "vite": "^8.3.4"
   }
 }

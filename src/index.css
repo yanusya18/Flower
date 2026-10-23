@@ -1,0 +1,401 @@
+/* Дизайн-токени з Figma (Design System) */
+:root {
+  --color-purple: #6e3dd9;
+  --color-purple-light: #966bf2;
+  --color-green: #195900;
+  --color-yellow: #fdff70;
+  --color-bg-light: #f2f2f2;
+  --color-bg-white: #ffffff;
+  --color-lavender: #eae0fb;
+  --color-text: #1f1f1f;
+
+  --font-display: 'Lobster', cursive;
+  --font-caps: 'Baskervville SC', Georgia, serif;
+  --font-body: 'Segoe UI', 'Noto Sans', system-ui, -apple-system, sans-serif;
+
+  --radius-card: 16px;
+}
+
+/* Світла тема (за замовчуванням): змінні задає клас на кореневому елементі */
+.app,
+.theme-light {
+  --bg-page: var(--color-bg-white);
+  --bg-band: var(--color-lavender);
+  --bg-muted: var(--color-bg-light);
+  --bg-card: var(--color-bg-light);
+  --text: var(--color-text);
+  --accent: var(--color-green);
+  --link: var(--color-green);
+  --focus: var(--color-purple);
+  --like: var(--color-purple);
+  --field-bg: var(--color-bg-white);
+  --field-border: var(--color-purple);
+  --btn-bg: var(--color-yellow);
+  --btn-text: var(--color-green);
+  --btn-border: var(--color-green);
+  --btn-hover-bg: var(--color-green);
+  --btn-hover-text: var(--color-yellow);
+  --chip-active-bg: var(--color-green);
+  --chip-active-text: var(--color-yellow);
+  --shadow-card: 0 4px 16px rgba(31, 31, 31, 0.12);
+}
+
+/* Темна тема */
+.theme-dark {
+  --bg-page: #1f1f1f;
+  --bg-band: #2b2142;
+  --bg-muted: #262626;
+  --bg-card: #2e2e2e;
+  --text: var(--color-bg-light);
+  --accent: var(--color-yellow);
+  --link: var(--color-yellow);
+  --focus: var(--color-yellow);
+  --like: var(--color-purple-light);
+  --field-bg: #1f1f1f;
+  --field-border: var(--color-purple-light);
+  --btn-bg: var(--color-yellow);
+  --btn-text: var(--color-green);
+  --btn-border: var(--color-yellow);
+  --btn-hover-bg: var(--color-purple);
+  --btn-hover-text: var(--color-yellow);
+  --chip-active-bg: var(--color-yellow);
+  --chip-active-text: var(--color-green);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.app {
+  min-height: 100vh;
+  background: var(--bg-page);
+  color: var(--text);
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Header ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg-band);
+}
+
+.header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+}
+
+.header__logo {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.header__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 32px;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+}
+
+.nav__link {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.nav__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.theme-toggle {
+  padding: 6px 16px;
+  border: 2px solid var(--link);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--link);
+  font: inherit;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: var(--link);
+  color: var(--bg-band);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--bg-band);
+}
+
+.hero__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 72px 24px 88px;
+}
+
+.hero__eyebrow {
+  margin-bottom: 12px;
+  font-family: var(--font-caps);
+  font-size: 1.125rem;
+}
+
+.hero__title {
+  max-width: 14ch;
+  margin-bottom: 20px;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--accent);
+}
+
+.hero__text {
+  max-width: 56ch;
+  margin-bottom: 32px;
+}
+
+/* ---------- Button ---------- */
+.button {
+  display: inline-block;
+  padding: 14px 28px;
+  border: 2px solid var(--btn-border);
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}
+
+/* ---------- Section ---------- */
+.section {
+  background: var(--bg-page);
+}
+
+.section--muted {
+  background: var(--bg-muted);
+}
+
+.section__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 72px 24px 88px;
+}
+
+.section__title {
+  margin-bottom: 32px;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+/* ---------- Filter ---------- */
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.chip {
+  padding: 8px 20px;
+  border: 2px solid var(--link);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--link);
+  font: inherit;
+  cursor: pointer;
+}
+
+.chip:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.chip--active {
+  background: var(--chip-active-bg);
+  border-color: var(--chip-active-bg);
+  color: var(--chip-active-text);
+}
+
+/* ---------- Cards ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border-radius: var(--radius-card);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.card__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card__icon {
+  box-sizing: content-box;
+  padding: 6px;
+  border-radius: 50%;
+  background: var(--color-bg-light);
+}
+
+.card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.card__text {
+  max-width: 28ch;
+}
+
+.like {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding: 4px 14px;
+  border: 2px solid var(--like);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.like:hover {
+  background: var(--like);
+  color: var(--color-bg-white);
+}
+
+.like__icon {
+  color: var(--like);
+}
+
+.like:hover .like__icon {
+  color: var(--color-bg-white);
+}
+
+.like__count {
+  min-width: 1.5ch;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Form ---------- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 420px;
+}
+
+.form__label {
+  font-weight: 600;
+}
+
+.form__input {
+  padding: 12px 16px;
+  border: 2px solid var(--field-border);
+  border-radius: 12px;
+  background: var(--field-bg);
+  color: var(--text);
+  font: inherit;
+}
+
+.form__greeting {
+  min-height: 3em;
+  margin-top: 8px;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 24px;
+  background: var(--bg-band);
+  text-align: center;
+}
+
+.footer__brand {
+  font-family: var(--font-caps);
+  font-size: 1.125rem;
+}
+
+.nav--footer {
+  justify-content: center;
+}
+
+.footer__copy {
+  font-size: 0.875rem;
+}
