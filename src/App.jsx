@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react'
 import Header from './components/Header.jsx'
 import Hero from './components/Hero.jsx'
 import Section from './components/Section.jsx'
+import AboutSection from './components/AboutSection.jsx'
+import HistorySection from './components/HistorySection.jsx'
+import FeaturesSection from './components/FeaturesSection.jsx'
 import CategoryFilter from './components/CategoryFilter.jsx'
 import Card from './components/Card.jsx'
 import ContactForm from './components/ContactForm.jsx'
+import { getProjects } from './api.js'
 import Footer from './components/Footer.jsx'
 
 import sunIcon from './assets/icons/sun.svg'
@@ -19,37 +23,13 @@ const categories = [
   { id: 'soil-climate', label: 'Ґрунт і клімат' },
 ]
 
-// Масив даних для карток; у кожної є category для фільтра
-const projects = [
-  {
-    id: 1,
-    category: 'light-water',
-    title: 'Освітлення',
-    text: 'Любить яскраве світло, але добре росте і в півтіні.',
-    image: sunIcon,
-  },
-  {
-    id: 2,
-    category: 'light-water',
-    title: 'Полив',
-    text: 'Регулярний, без застою води в ґрунті.',
-    image: dropIcon,
-  },
-  {
-    id: 3,
-    category: 'soil-climate',
-    title: 'Ґрунт',
-    text: 'Легкий, родючий, з добрим дренажем.',
-    image: sproutIcon,
-  },
-  {
-    id: 4,
-    category: 'soil-climate',
-    title: 'Температура',
-    text: 'Оптимально 18–28 °C. Не любить сильну спеку та холод.',
-    image: thermometerIcon,
-  },
-]
+// Іконки: сервер повертає лише ключ (icon), а самі файли лежать у фронтенді
+const icons = {
+  sun: sunIcon,
+  drop: dropIcon,
+  sprout: sproutIcon,
+  thermometer: thermometerIcon,
+}
 
 // Додаткове завдання: тема зберігається в localStorage
 const THEME_KEY = 'theme'
@@ -65,6 +45,28 @@ function getStoredTheme() {
 function App() {
   const [theme, setTheme] = useState(getStoredTheme)
   const [category, setCategory] = useState('all')
+  const [projects, setProjects] = useState([])
+  const [status, setStatus] = useState('loading') // loading | ready | error
+  const [attempt, setAttempt] = useState(0)
+
+  // Крок 7: завантажуємо картки з власного API; AbortController скасовує запит при розмонтуванні
+  useEffect(() => {
+    const controller = new AbortController()
+    getProjects(controller.signal)
+      .then((data) => {
+        setProjects(data)
+        setStatus('ready')
+      })
+      .catch((error) => {
+        if (error.name !== 'AbortError') setStatus('error')
+      })
+    return () => controller.abort()
+  }, [attempt])
+
+  function retry() {
+    setStatus('loading')
+    setAttempt(attempt + 1)
+  }
 
   // Зберігаємо вибрану тему після кожної зміни
   useEffect(() => {
@@ -87,15 +89,38 @@ function App() {
       />
       <main>
         <Hero />
-        <Section id="care" title="Догляд">
-          <CategoryFilter categories={categories} active={category} onChange={setCategory} />
-          <div className="cards">
-            {visibleProjects.map((project) => (
-              <Card key={project.id} {...project} />
-            ))}
-          </div>
+        <AboutSection />
+        <HistorySection />
+        <FeaturesSection />
+        <Section id="care" title="Догляд" tone="muted">
+          {status === 'loading' && (
+            <p className="status" role="status">
+              Завантаження…
+            </p>
+          )}
+          {status === 'error' && (
+            <div className="status status--error" role="alert">
+              <p>
+                Не вдалося завантажити дані. Перевірте, що сервер запущено: <code>npm start</code>{' '}
+                у папці <code>server</code>.
+              </p>
+              <button type="button" className="chip" onClick={retry}>
+                Спробувати ще раз
+              </button>
+            </div>
+          )}
+          {status === 'ready' && (
+            <>
+              <CategoryFilter categories={categories} active={category} onChange={setCategory} />
+              <div className="cards">
+                {visibleProjects.map((project) => (
+                  <Card key={project.id} {...project} image={icons[project.icon]} />
+                ))}
+              </div>
+            </>
+          )}
         </Section>
-        <Section id="contacts" title="Контакти" tone="muted">
+        <Section id="contacts" title="Контакти">
           <ContactForm />
         </Section>
       </main>

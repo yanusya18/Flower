@@ -1,0 +1,26 @@
+{
+  "hill": {
+    "width": 418,
+    "height": 293,
+    "widths": [
+      320,
+      418
+    ]
+  },
+  "macro": {
+    "width": 533,
+    "height": 299,
+    "widths": [
+      320,
+      533
+    ]
+  },
+  "sunset": {
+    "width": 562,
+    "height": 320,
+    "widths": [
+      320,
+      562
+    ]
+  }
+}

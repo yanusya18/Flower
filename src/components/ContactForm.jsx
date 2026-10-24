@@ -1,22 +1,32 @@
 import { useState } from 'react'
-import { validatePhone } from '../utils/validatePhone.js'
+import { normalizePhone, validatePhone } from '../utils/validatePhone.js'
+import { sendContact } from '../api.js'
 
 // Контрольована форма: значення полів зберігаються у стані
 function ContactForm() {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [touched, setTouched] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
   const cleanName = name.trim()
 
   // Помилка показується лише після першого виходу з поля або спроби надсилання
   const phoneError = validatePhone(phone)
   const visiblePhoneError = touched ? phoneError : ''
 
-  function handleSubmit(e) {
+  // Крок 8: коректну форму надсилаємо на POST /api/contact
+  async function handleSubmit(e) {
     e.preventDefault()
     setTouched(true)
-    setSubmitted(phoneError === '')
+    if (phoneError) return
+
+    setStatus('sending')
+    try {
+      await sendContact({ name: cleanName, phone: normalizePhone(phone) })
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -31,7 +41,10 @@ function ContactForm() {
         autoComplete="given-name"
         placeholder="Як до вас звертатися?"
         value={name}
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e) => {
+          setName(e.target.value)
+          setStatus('idle')
+        }}
       />
       <p className="form__greeting" aria-live="polite">
         {cleanName
@@ -52,7 +65,7 @@ function ContactForm() {
         value={phone}
         onChange={(e) => {
           setPhone(e.target.value)
-          setSubmitted(false)
+          setStatus('idle')
         }}
         onBlur={() => setTouched(true)}
         aria-invalid={visiblePhoneError ? 'true' : 'false'}
@@ -62,10 +75,19 @@ function ContactForm() {
         {visiblePhoneError}
       </p>
 
-      <button className="button button--submit" type="submit">
-        Надіслати
+      <button className="button button--submit" type="submit" disabled={status === 'sending'}>
+        {status === 'sending' ? 'Надсилання…' : 'Надіслати'}
       </button>
-      {submitted && <p className="form__success">Дякуємо! Номер прийнято.</p>}
+      {status === 'sent' && (
+        <p className="form__success" role="status">
+          Дякуємо! Повідомлення надіслано.
+        </p>
+      )}
+      {status === 'error' && (
+        <p className="form__error form__error--submit" role="alert">
+          Не вдалося надіслати повідомлення. Перевірте, що сервер запущено, і спробуйте ще раз.
+        </p>
+      )}
     </form>
   )
 }
