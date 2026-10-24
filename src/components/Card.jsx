@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+// Одна картка догляду. Дані приходять через props: title, text, image.
+// Лічильник вподобань — власний стан кожної картки (крок 1–3).
 function Card({ title, text, image }) {
   const [count, setCount] = useState(0)
 

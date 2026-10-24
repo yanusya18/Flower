@@ -37,6 +37,7 @@
   --btn-hover-text: var(--color-yellow);
   --chip-active-bg: var(--color-green);
   --chip-active-text: var(--color-yellow);
+  --error: #b3261e;
   --shadow-card: 0 4px 16px rgba(31, 31, 31, 0.12);
 }
 
@@ -60,6 +61,7 @@
   --btn-hover-text: var(--color-yellow);
   --chip-active-bg: var(--color-yellow);
   --chip-active-text: var(--color-green);
+  --error: #ff8a80;
   --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.45);
 }
 
@@ -373,7 +375,30 @@ input:focus-visible {
 
 .form__greeting {
   min-height: 3em;
+  margin: 8px 0 12px;
+}
+
+.form__input[aria-invalid='true'] {
+  border-color: var(--error);
+}
+
+.form__error {
+  min-height: 1.5em;
+  color: var(--error);
+  font-size: 0.9375rem;
+}
+
+button.button {
+  align-self: flex-start;
   margin-top: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.form__success {
+  margin-top: 8px;
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* ---------- Footer ---------- */
