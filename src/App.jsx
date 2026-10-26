@@ -68,8 +68,9 @@ function App() {
     setAttempt(attempt + 1)
   }
 
-  // Зберігаємо вибрану тему після кожної зміни
+  // Зберігаємо вибрану тему після кожної зміни й передаємо її елементу <html>
   useEffect(() => {
+    document.documentElement.dataset.theme = theme
     try {
       localStorage.setItem(THEME_KEY, theme)
     } catch {
@@ -77,17 +78,24 @@ function App() {
     }
   }, [theme])
 
-  const visibleProjects = projects.filter(
-    (project) => category === 'all' || project.category === category,
+  // Фільтр: id карток, які треба показати. Приховані картки не видаляємо з дерева
+  // (атрибут hidden), щоб їхні лічильники вподобань не скидалися при зміні фільтра.
+  const visibleIds = new Set(
+    projects
+      .filter((project) => category === 'all' || project.category === category)
+      .map((project) => project.id),
   )
 
   return (
     <div className={`app theme-${theme}`}>
+      <a className="skip-link" href="#main">
+        Перейти до основного вмісту
+      </a>
       <Header
         theme={theme}
         onToggleTheme={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
         <AboutSection />
         <HistorySection />
@@ -113,8 +121,13 @@ function App() {
             <>
               <CategoryFilter categories={categories} active={category} onChange={setCategory} />
               <div className="cards">
-                {visibleProjects.map((project) => (
-                  <Card key={project.id} {...project} image={icons[project.icon]} />
+                {projects.map((project) => (
+                  <Card
+                    key={project.id}
+                    {...project}
+                    image={icons[project.icon]}
+                    hidden={!visibleIds.has(project.id)}
+                  />
                 ))}
               </div>
             </>

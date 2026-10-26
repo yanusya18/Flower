@@ -32,13 +32,14 @@ function ContactForm() {
   return (
     <form className="form" onSubmit={handleSubmit} noValidate>
       <label className="form__label" htmlFor="name">
-        Ім&rsquo;я
+        Ім&rsquo;я <span className="form__hint">(необов&rsquo;язково)</span>
       </label>
       <input
         className="form__input"
         id="name"
         type="text"
         autoComplete="given-name"
+        maxLength={100}
         placeholder="Як до вас звертатися?"
         value={name}
         onChange={(e) => {
@@ -53,7 +54,7 @@ function ContactForm() {
       </p>
 
       <label className="form__label" htmlFor="phone">
-        Телефон
+        Телефон <span className="form__hint">(обов&rsquo;язково)</span>
       </label>
       <input
         className="form__input"
@@ -68,6 +69,7 @@ function ContactForm() {
           setStatus('idle')
         }}
         onBlur={() => setTouched(true)}
+        aria-required="true"
         aria-invalid={visiblePhoneError ? 'true' : 'false'}
         aria-describedby="phone-error"
       />

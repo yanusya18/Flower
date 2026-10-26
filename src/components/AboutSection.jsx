@@ -1,6 +1,10 @@
 import Section from './Section.jsx'
 
-const facts = ['🌙 Цвіте ввечері', '🌸 Має ніжні лілієподібні квіти', '🌿 Походить із тропічних регіонів Америки']
+const facts = [
+  { emoji: '🌙', text: 'Цвіте ввечері' },
+  { emoji: '🌸', text: 'Має ніжні лілієподібні квіти' },
+  { emoji: '🌿', text: 'Походить із тропічних регіонів Америки' },
+]
 
 function AboutSection() {
   return (
@@ -11,8 +15,8 @@ function AboutSection() {
       </p>
       <ul className="tags">
         {facts.map((fact) => (
-          <li className="tag" key={fact}>
-            {fact}
+          <li className="tag" key={fact.text}>
+            <span aria-hidden="true">{fact.emoji}</span> {fact.text}
           </li>
         ))}
       </ul>

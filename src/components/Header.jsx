@@ -22,12 +22,7 @@ function Header({ theme, onToggleTheme }) {
               ))}
             </ul>
           </nav>
-          <button
-            type="button"
-            className="theme-toggle"
-            onClick={onToggleTheme}
-            aria-pressed={isDark}
-          >
+          <button type="button" className="theme-toggle" onClick={onToggleTheme}>
             {isDark ? 'Світла тема' : 'Темна тема'}
           </button>
         </div>

@@ -2,10 +2,42 @@
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
+    <!-- Ставимо збережену тему ще до першого кадру, щоб у темній темі не було білого спалаху -->
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light'
+      }
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="L'Heure Bleue: Mirabilis jalapa, квітка, що розквітає ввечері" />
-    <title>L'Heure Bleue — Mirabilis jalapa</title>
+    <title>Mirabilis jalapa — нічна красуня | L'Heure Bleue</title>
+    <meta
+      name="description"
+      content="Mirabilis jalapa — екзотична квітка, що розкривається ввечері. Історія, особливості та догляд: світло, полив, ґрунт і температура."
+    />
+    <meta name="theme-color" content="#EAE0FB" />
+    <!-- %VITE_SITE_URL% підставляється зі змінної середовища (файл .env), адреса має бути абсолютною -->
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
+
+    <!-- Open Graph: попередній перегляд посилання в соцмережах і месенджерах -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="L'Heure Bleue" />
+    <meta property="og:locale" content="uk_UA" />
+    <meta property="og:url" content="%VITE_SITE_URL%/" />
+    <meta property="og:title" content="Mirabilis jalapa — квітка, що розквітає разом із вечором" />
+    <meta
+      property="og:description"
+      content="Дізнайтеся про «нічну красуню»: її історію, особливості та правила догляду."
+    />
+    <meta property="og:image" content="%VITE_SITE_URL%/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Фіолетова квітка Mirabilis jalapa в сутінках і заголовок «Квітка, що розквітає разом із вечором»" />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <!-- Шрифти для першого екрана вантажимо одразу, не чекаючи виконання JS -->
     <link rel="preload" href="/fonts/lobster-cyrillic-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/lobster-latin-400.woff2" as="font" type="font/woff2" crossorigin />

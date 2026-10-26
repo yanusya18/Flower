@@ -59,6 +59,9 @@
   --link: var(--color-green);
   --focus: var(--color-purple);
   --like: var(--color-purple);
+  --like-hover-bg: var(--color-purple);
+  --like-hover-text: var(--color-bg-white);
+  --placeholder: #6b6b6b;
   --field-bg: var(--color-bg-white);
   --field-border: var(--color-purple);
   --btn-bg: var(--color-yellow);
@@ -82,7 +85,10 @@
   --accent: var(--color-yellow);
   --link: var(--color-yellow);
   --focus: var(--color-yellow);
-  --like: var(--color-purple-light);
+  --like: #b79cff; /* світліший відтінок Light Purple для контрасту на темних картках */
+  --like-hover-bg: #b79cff;
+  --like-hover-text: var(--color-text);
+  --placeholder: #a6a6a6;
   --field-bg: #1f1f1f;
   --field-border: var(--color-purple-light);
   --btn-bg: var(--color-yellow);
@@ -103,8 +109,23 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 88px;
+}
+
+/* Фон і системні елементи відповідають темі ще до запуску React */
+html[data-theme='light'] {
+  background: var(--color-bg-white);
+}
+
+html[data-theme='dark'] {
+  background: var(--color-text);
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -185,6 +206,8 @@ input:focus-visible {
 }
 
 .nav__link {
+  display: inline-block;
+  padding: 4px 0;
   color: var(--link);
   text-decoration: none;
 }
@@ -370,8 +393,8 @@ input:focus-visible {
 }
 
 .like:hover {
-  background: var(--like);
-  color: var(--color-bg-white);
+  background: var(--like-hover-bg);
+  color: var(--like-hover-text);
 }
 
 .like__icon {
@@ -379,7 +402,7 @@ input:focus-visible {
 }
 
 .like:hover .like__icon {
-  color: var(--color-bg-white);
+  color: var(--like-hover-text);
 }
 
 .like__count {
@@ -532,6 +555,16 @@ button.button:disabled {
 }
 
 @media (max-width: 760px) {
+  /* На телефоні шапка займає до чверті екрана: не залишаємо її закріпленою,
+     інакше вона перекриває заголовки секцій після переходу за посиланням */
+  .header {
+    position: static;
+  }
+
+  html {
+    scroll-padding-top: 0;
+  }
+
   .hero__inner,
   .split {
     grid-template-columns: 1fr;
@@ -545,4 +578,40 @@ button.button:disabled {
   .section__inner {
     padding: 48px 24px 56px;
   }
+}
+
+/* ---------- Доступність ---------- */
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 10px 20px;
+  border: 2px solid var(--btn-border);
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+main:focus {
+  outline: none;
+}
+
+.form__hint {
+  font-weight: 400;
+}
+
+.form__input::placeholder {
+  color: var(--placeholder);
+  opacity: 1;
+}
+
+/* Атрибут hidden має працювати і для елементів з власним display (наприклад, картки) */
+[hidden] {
+  display: none !important;
 }

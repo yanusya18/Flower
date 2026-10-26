@@ -1,6 +1,6 @@
 # Flower
 
-Практичні заняття № 19–23. React: компоненти, props, useState та події (L'Heure Bleue, Mirabilis jalapa).
+Практичні заняття № 19–25. React: компоненти, props, useState та події (L'Heure Bleue, Mirabilis jalapa).
 
 ## Запуск
 
@@ -79,3 +79,11 @@ CORS увімкнено (`app.use(cors())`), тому фронтенд з пор
 ## Продуктивність (Практичне 23)
 
 Зображення стискаються у WebP/AVIF командою `npm run images` (результат у `public/images`), шрифти розміщені локально в `public/fonts`. Performance у Lighthouse (Mobile) зріс з 84 до 97. Таблиця «до/після», звіти та примітки: [docs/PERFORMANCE.md](docs/PERFORMANCE.md).
+
+## SEO та доступність (Практичне 24)
+
+Додано Open Graph, canonical, skip link, виправлено контраст у темній темі. Перед публікацією задайте `VITE_SITE_URL` у `.env`. Таблиця «до/після» і подробиці: [docs/ACCESSIBILITY-SEO.md](docs/ACCESSIBILITY-SEO.md).
+
+## Тестування (Практичне 25)
+
+Тест-кейси, журнал дефектів і результати регресії: [TESTING.md](TESTING.md).

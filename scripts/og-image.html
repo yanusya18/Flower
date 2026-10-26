@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- Шаблон картки для Open Graph (1200×630). Відкрийте у Chrome, зробіть знімок розміром 1200×630
+     і збережіть як public/og-image.jpg. Зображення праворуч — тимчасове, замініть на фінальне фото. -->
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @font-face { font-family: 'Lobster'; src: url('../public/fonts/lobster-cyrillic-400.woff2') format('woff2'); unicode-range: U+0400-04FF, U+2116; }
+      @font-face { font-family: 'Lobster'; src: url('../public/fonts/lobster-latin-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+      @font-face { font-family: 'Baskervville SC'; src: url('../public/fonts/baskervville-sc-latin-400.woff2') format('woff2'); }
+      * { box-sizing: border-box; margin: 0; }
+      body { width: 1200px; height: 630px; display: grid; grid-template-columns: 1fr 480px; gap: 56px; align-items: center;
+        padding: 64px; background: #eae0fb; color: #1f1f1f; font-family: 'Segoe UI', 'Noto Sans', sans-serif; }
+      .logo { font-family: 'Lobster'; font-size: 40px; margin-bottom: 40px; }
+      .eyebrow { font-family: 'Baskervville SC'; font-size: 28px; margin-bottom: 16px; }
+      h1 { font-family: 'Lobster'; font-weight: 400; font-size: 80px; line-height: 1.12; color: #195900; }
+      img { width: 480px; height: 502px; object-fit: cover; border-radius: 24px; display: block; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p class="logo">L’Heure Bleue</p>
+      <p class="eyebrow">Mirabilis jalapa</p>
+      <h1>Квітка, що розквітає разом із вечором</h1>
+    </div>
+    <img src="../src/assets/photos-src/macro.png" alt="" />
+  </body>
+</html>
