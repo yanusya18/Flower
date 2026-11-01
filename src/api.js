@@ -1,5 +1,7 @@
-// Адреса API: за замовчуванням локальний Express-сервер із папки server
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000'
+// Адреса API. Під час розробки (npm run dev) це локальний Express-сервер із папки server.
+// У збірці для публікації запити йдуть на той самий домен (/api/...), де їх обслуговує
+// serverless-функція з папки api. Адресу можна змінити змінною VITE_API_URL.
+const API_URL = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? 'http://localhost:3000' : '')
 
 async function request(path, options) {
   const response = await fetch(`${API_URL}${path}`, options)

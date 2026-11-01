@@ -1,13 +1,29 @@
-# Flower
+# Flower (L'Heure Bleue)
 
-Практичні заняття № 19–25. React: компоненти, props, useState та події (L'Heure Bleue, Mirabilis jalapa).
+Лендінг про квітку **Mirabilis jalapa** («нічну красуню»), яка розкривається ввечері. Навчальний проєкт: від макета у Figma до опублікованого PWA-застосунку.
 
-## Запуск
+## Посилання
 
-Потрібні два термінали: один для API-сервера, другий для фронтенду.
+- **Живий сайт:** [вставте посилання після деплою на Netlify]
+- **Репозиторій:** [вставте посилання на GitHub-репозиторій]
+- **Figma-макет:** https://www.figma.com/design/Ra16pJ3hDFiqIYCcg0X49O/Flower?node-id=0-1
+
+## Технології
+
+- **Фронтенд:** React 19, Vite 8, CSS (змінні, світла й темна теми)
+- **Стан і дані:** `useState`, `useEffect`, `fetch` до власного API, збереження теми в `localStorage`
+- **Сервер:** Node.js, Express 5, CORS (`server/`); на хостингу той самий застосунок працює як Netlify Function (`netlify/functions/api.js`)
+- **Зображення й шрифти:** AVIF/WebP через `sharp`, локальні шрифти Lobster і Baskervville SC
+- **PWA:** `manifest.json`, іконки 192/512/maskable, service worker (кеш оболонки та API, робота офлайн)
+- **Якість:** oxlint, `node:test`, Lighthouse, axe-core
+- **Публікація:** GitHub + Netlify (автодеплой при кожному push у `main`)
+
+## Запуск локально
+
+Потрібен Node.js 20.19+. Два термінали:
 
 ```bash
-# термінал 1: сервер (http://localhost:3000)
+# термінал 1: API-сервер (http://localhost:3000)
 cd server
 npm install
 npm start
@@ -17,73 +33,42 @@ npm install
 npm run dev
 ```
 
-Якщо сервер не запущено, на сторінці з'явиться повідомлення про помилку з кнопкою «Спробувати ще раз».
+Перевірка збірки: `npm run build`, потім `npm run preview` (запити до `/api` переспрямовуються на локальний сервер).
 
-Тести (вбудований `node:test`):
+## Публікація й PWA
 
-```bash
-npm test              # перевірка телефону (корінь проєкту)
-cd server && npm test # маршрути API
-```
+Інструкція з деплою на Netlify, налаштування змінних середовища та перевірка PWA: [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ## Структура
 
 ```
-server/
-├── server.js             Express API: GET /api/projects, GET /api/projects/:id, POST /api/contact
-├── server.test.js        тести маршрутів
-└── package.json
-src/
-├── main.jsx              точка входу
-├── assets/photos-src/    оригінали фото (стискаються командою npm run images)
-├── api.js                fetch-запити до сервера (getProjects, sendContact)
-├── App.jsx               завантаження карток із API і збірка сторінки
-├── index.css             токени, базові стилі та стилі компонентів
-├── utils/                validatePhone.js та його тести
-├── data/navLinks.js      посилання меню (Header і Footer)
-├── assets/icons/         іконки карток
-└── components/
-    ├── Header.jsx
-    ├── Hero.jsx
-    ├── Section.jsx       секція з title і children (додаткове завдання)
-    ├── Card.jsx          props: title, text, image; стан лічильника вподобань
-    ├── CategoryFilter.jsx кнопки фільтра карток
-    ├── ContactForm.jsx   контрольоване поле імені та привітання
-    └── Footer.jsx
+netlify.toml           збірка, правило /api/* → функція, заголовки
+netlify/functions/     Netlify Function: запускає Express-застосунок із папки server
+server/                Express API: GET /api/projects, GET /api/projects/:id, POST /api/contact
+public/                manifest.json, sw.js, іконки, шрифти, оптимізовані зображення
+scripts/               стиснення зображень, створення іконок, шаблон Open Graph
+src/components/        Header, Hero, Section, Card, CategoryFilter, ContactForm, Footer тощо
+src/api.js             запити до API
+src/utils/             перевірка телефону й тести
+docs/                  звіти практичних і інструкції
 ```
 
-## Інтерактивність (Практичне 20)
+## Команди
 
-| Що | Де живе стан |
+| Команда | Що робить |
 |---|---|
-| Лічильник вподобань | `Card.jsx`: `count`, власний у кожної картки |
-| Перемикач теми | `App.jsx`: `theme` (клас `theme-light` / `theme-dark` на кореневому елементі) |
-| Фільтр карток | `App.jsx`: `category`, список через `projects.filter(...)` |
-| Контрольована форма | `ContactForm.jsx`: `name`, привітання виводиться під полем |
-| Збереження теми | `useEffect` + `localStorage` (додаткове завдання) |
+| `npm run dev` | сервер розробки |
+| `npm run build` / `npm run preview` | збірка й перегляд збірки |
+| `npm test` | тести перевірки телефону |
+| `cd server && npm test` | тести маршрутів API |
+| `npm run images` | стиснення фото з `src/assets/photos-src` у AVIF/WebP |
+| `npm run icons` | створення PWA-іконок |
+| `npm run lint` | перевірка коду |
 
-## AI-асистент (Практичне 21)
+## Документація
 
-Перевірка телефону `+380XXXXXXXXX` у `ContactForm.jsx`, винесена в `src/utils/validatePhone.js` з unit-тестами. Промпти, налагодження й висновки: [AI-NOTES.md](AI-NOTES.md).
-
-## Node.js API (Практичне 22)
-
-| Маршрут | Що робить |
-|---|---|
-| `GET /api/projects` | повертає масив карток догляду у форматі JSON |
-| `GET /api/projects/:id` | повертає один проєкт або `404`, якщо id не існує (додаткове завдання) |
-| `POST /api/contact` | приймає `{ name, phone }`, виводить у консоль сервера й повертає `{ ok: true }`; некоректний телефон дає `400` |
-
-CORS увімкнено (`app.use(cors())`), тому фронтенд з порту 5173 може звертатись до сервера на порту 3000. Адресу API можна змінити змінною `VITE_API_URL`.
-
-## Продуктивність (Практичне 23)
-
-Зображення стискаються у WebP/AVIF командою `npm run images` (результат у `public/images`), шрифти розміщені локально в `public/fonts`. Performance у Lighthouse (Mobile) зріс з 84 до 97. Таблиця «до/після», звіти та примітки: [docs/PERFORMANCE.md](docs/PERFORMANCE.md).
-
-## SEO та доступність (Практичне 24)
-
-Додано Open Graph, canonical, skip link, виправлено контраст у темній темі. Перед публікацією задайте `VITE_SITE_URL` у `.env`. Таблиця «до/після» і подробиці: [docs/ACCESSIBILITY-SEO.md](docs/ACCESSIBILITY-SEO.md).
-
-## Тестування (Практичне 25)
-
-Тест-кейси, журнал дефектів і результати регресії: [TESTING.md](TESTING.md).
+- [AI-NOTES.md](AI-NOTES.md): робота з AI-асистентом
+- [docs/PERFORMANCE.md](docs/PERFORMANCE.md): оптимізація за Lighthouse
+- [docs/ACCESSIBILITY-SEO.md](docs/ACCESSIBILITY-SEO.md): SEO та доступність
+- [TESTING.md](TESTING.md): тест-кейси й журнал дефектів
+- [docs/DEPLOY.md](docs/DEPLOY.md): деплой і PWA
