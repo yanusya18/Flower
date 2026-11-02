@@ -1,5 +1,3 @@
-// Простий service worker: кешує оболонку сайту (головну сторінку, іконки, маніфест),
-// стилі, скрипти, шрифти та зображення, а також відповідь GET /api/projects.
 const CACHE = 'flower-v1'
 const SHELL = ['./', 'manifest.json', 'favicon.svg', 'icons/icon-192.png', 'icons/icon-512.png']
 
@@ -12,7 +10,6 @@ self.addEventListener('install', (event) => {
   )
 })
 
-// Видаляємо кеші старих версій і беремо під контроль відкриті вкладки
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
@@ -30,7 +27,6 @@ async function putInCache(request, response) {
   return response
 }
 
-// Спочатку мережа (свіжі дані); без мережі беремо збережену копію
 async function networkFirst(request, fallbackUrl) {
   try {
     return await putInCache(request, await fetch(request))
@@ -41,7 +37,6 @@ async function networkFirst(request, fallbackUrl) {
   }
 }
 
-// Одразу зі збереженої копії, а в фоні оновлюємо її
 async function staleWhileRevalidate(request) {
   const cached = await caches.match(request)
   const update = fetch(request)
@@ -54,7 +49,6 @@ self.addEventListener('fetch', (event) => {
   const { request } = event
   const url = new URL(request.url)
 
-  // Обробляємо лише GET-запити до свого домену: POST форми та сторонні адреси не чіпаємо
   if (request.method !== 'GET' || url.origin !== self.location.origin) return
 
   if (request.mode === 'navigate') {

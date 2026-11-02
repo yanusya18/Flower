@@ -5,28 +5,24 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "22"
+  NODE_VERSION = "20"
 
-# Функція з папки netlify/functions обслуговує API (Express із папки server)
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
   external_node_modules = ["express"]
 
-# Запити /api/* ідуть до функції на тому самому домені (без CORS)
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
 
-# Service worker завжди перевіряється на оновлення
 [[headers]]
   for = "/sw.js"
   [headers.values]
     Cache-Control = "no-cache"
 
-# Файли збірки мають хеш у назві, тож їх можна кешувати надовго
 [[headers]]
   for = "/assets/*"
   [headers.values]
