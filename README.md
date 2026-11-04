@@ -4,8 +4,8 @@
 
 ## Посилання
 
-- **Живий сайт:** [вставте посилання після деплою на Netlify]
-- **Репозиторій:** [вставте посилання на GitHub-репозиторій]
+- **Живий сайт:**  https://mirabilijalapa.netlify.app/#main
+- **Репозиторій:** https://github.com/yanusya18/Flower.git
 - **Figma-макет:** https://www.figma.com/design/Ra16pJ3hDFiqIYCcg0X49O/Flower?node-id=0-1
 
 ## Технології
